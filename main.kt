@@ -10,6 +10,9 @@ fun main(args: Array<String>) {
     
     calculateAndPrint(1, 2, ::sum)
     iterateExecute(5, {index:Int->println(index.toString())})
+    
+    val operatorObject = generalOperator("Int")
+    printValue(operatorObject.sum(1,2))
 }
 
 fun iterateExecute(a:Int, func:(Int)->Unit):Unit{
