@@ -1,3 +1,4 @@
+import kotlin.properties.Delegates
 open class basicOperator constructor(){
 
     open fun sum(a:Number, b:Number):Number{
@@ -5,17 +6,28 @@ open class basicOperator constructor(){
     }
 }
 
-class generalOperator constructor(val returnType:String = "FLoat"): basicOperator(){
+class generalOperator constructor(): basicOperator(){
+    var returnType:String by Delegates.observable("Float"){
+        _, old, new ->println("return type is setted to ${new} from ${old}")
+    }
+    
+    constructor(_returnType:String = "Float"): this(){
+        returnType = _returnType 
+    }
     
     override fun sum(a:Number, b:Number):Number{
-        println("overridden sum function")
+        //println("overridden sum function")
         var summation = super.sum(a, b)
         val type:Number = when(returnType.toLowerCase()){
-            "float"-> return summation.toFloat()
-            "double"-> return summation.toDouble()
-            "int"->return summation.toInt()
-            else -> return summation.toDouble()
+            "float"-> summation.toFloat()
+            "double"-> summation.toDouble()
+            "int"-> summation.toInt()
+            else -> summation.toDouble()
         }
         return type
+    }
+    
+    companion object {
+        var memberFuncList:String = "sum"
     }
 }

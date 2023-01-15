@@ -1,18 +1,20 @@
 fun main(args: Array<String>) {
-    printValue("Hello World")
-	printValue(10)
-    
-    printValue(sum(1,2))
-    printValue(multiply(1,2))
-    
+
     printValue(divide(1,2, {num:Number->if(num == 0){println("divide with zero error")}}))
     printValue(divide(1,0){num:Number->if(num == 0){println("divide with zero error")}})
     
     calculateAndPrint(1, 2, ::sum)
     iterateExecute(5, {index:Int->println(index.toString())})
     
-    val operatorObject = generalOperator("Int")
+    val operatorObject = generalOperator("Float")
     printValue(operatorObject.sum(1,2))
+    
+    operatorObject.returnType = "Int"
+    printValue(operatorObject.sum(1,2))
+    println(generalOperator.memberFuncList)
+    
+    val responseObject = ResponseClass()
+    responseObject.printResponse(1, "")
 }
 
 fun iterateExecute(a:Int, func:(Int)->Unit):Unit{
